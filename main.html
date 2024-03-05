@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logan's MP3 Player</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label.upload-btn {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        label.upload-btn:hover {
+            background-color: #43a047;
+        }
+        ul#playlist {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .song {
+            margin: 10px;
+            background-color: #333333;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logan's MP3 Player🤫🧏</h1>
+    <input type="file" id="fileInput" accept=".mp3" multiple>
+    <label for="fileInput" class="upload-btn">Upload MP3 Files</label>
+    <ul id="playlist"></ul>
+
+    <script>
+        function handleFiles(files) {
+            const playlist = document.getElementById('playlist');
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const listItem = document.createElement('li');
+                const audio = document.createElement('audio');
+                const source = document.createElement('source');
+
+                audio.controls = true;
+                source.src = URL.createObjectURL(file);
+                source.type = 'audio/mpeg';
+
+                audio.appendChild(source);
+                listItem.appendChild(audio);
+                listItem.className = 'song';
+                listItem.appendChild(document.createTextNode(file.name));
+
+                playlist.appendChild(listItem);
+            }
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            handleFiles(this.files);
+        });
+    </script>
+</body>
+</html>
